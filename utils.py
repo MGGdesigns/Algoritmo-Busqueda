@@ -1,3 +1,6 @@
+import math
+
+import search
 
 #______________________________________________________________________________
 # Simple Data Structures: infinity, Dict, Struct
@@ -542,6 +545,76 @@ class FIFOQueue(Queue):
             self.A = self.A[self.start:]
             self.start = 0
         return e
+
+class branch_and_bound():
+
+    def __init__(self):
+        self.A = []
+        self.start = 0
+
+
+    def append(self, item):
+        self.A.append(item)
+
+
+    def __len__(self):
+        return len(self.A) - self.start
+
+
+    def extend(self, items):
+        self.A.extend(items)
+        print("Antes de ordenar: " + str(self.A))
+        for i in range(0, len(self.A)):
+            for j in range(i + 1, len(self.A)):
+                if self.A[i].path_cost >= self.A[j].path_cost:
+                    temp_val = self.A[i]
+                    self.A[i] = self.A[j]
+                    self.A[j] = temp_val
+        print("Despues de ordenar: " + str(self.A))
+
+
+    def pop(self):
+        e = self.A[self.start]
+        self.start += 1
+        self.A = self.A[self.start:]
+        self.start = 0
+        return e
+class branch_and_bound_subestimated():
+
+    def __init__(self, problem):
+        self.A = []
+        self.start = 0
+        self.problem = problem
+
+
+    def append(self, item):
+        self.A.append(item)
+
+
+    def __len__(self):
+        return len(self.A) - self.start
+
+
+    def extend(self, items):
+        self.A.extend(items)
+        print("Antes de ordenar: " + str(self.A))
+        for i in range(0, len(self.A)):
+            for j in range(i + 1, len(self.A)):
+                if self.A[i].path_cost + search.GPSProblem.h(self.problem, self.A[i]) >= self.A[j].path_cost + search.GPSProblem.h(self.problem, self.A[j]):
+                    temp_val = self.A[i]
+                    self.A[i] = self.A[j]
+                    self.A[j] = temp_val
+        print("Despues de ordenar: " + str(self.A))
+
+
+    def pop(self):
+        e = self.A[self.start]
+        self.start += 1
+        self.A = self.A[self.start:]
+        self.start = 0
+        return e
+
+
 
 
 
