@@ -563,14 +563,14 @@ class branch_and_bound():
 
     def extend(self, items):
         self.A.extend(items)
-        print("Antes de ordenar: " + str(self.A))
+        #print("Antes de ordenar: " + str(self.A))
         for i in range(0, len(self.A)):
             for j in range(i + 1, len(self.A)):
                 if self.A[i].path_cost >= self.A[j].path_cost:
                     temp_val = self.A[i]
                     self.A[i] = self.A[j]
                     self.A[j] = temp_val
-        print("Despues de ordenar: " + str(self.A))
+        #print("Despues de ordenar: " + str(self.A))
 
 
     def pop(self):
@@ -597,14 +597,14 @@ class branch_and_bound_subestimated():
 
     def extend(self, items):
         self.A.extend(items)
-        print("Antes de ordenar: " + str(self.A))
+        #print("Antes de ordenar: " + str(self.A))
         for i in range(0, len(self.A)):
             for j in range(i + 1, len(self.A)):
                 if self.A[i].path_cost + search.GPSProblem.h(self.problem, self.A[i]) >= self.A[j].path_cost + search.GPSProblem.h(self.problem, self.A[j]):
                     temp_val = self.A[i]
                     self.A[i] = self.A[j]
                     self.A[j] = temp_val
-        print("Despues de ordenar: " + str(self.A))
+        #print("Despues de ordenar: " + str(self.A))
 
 
     def pop(self):
